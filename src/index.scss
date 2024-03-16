@@ -1,0 +1,49 @@
+:root {
+	--global-light: #eee;
+	--global-dark: #222;
+	--global-lightgreen: #70ff77;
+	--global-darkgreen: #225b25;
+	--global-yellow: #faff65;
+	--global-yellow-dark: #ffd700;
+	--global-red: #f00;
+	--global-blue: #170f46;
+	--global-blue-light: #281a76;
+	--global-blue-dark: #0d0927;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+p,
+span {
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul,
+ol,
+li {
+	list-style: none;
+}
+
+#root {
+	min-width: auto;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	overflow-x: hidden;
+}
+
+.wrapper {
+	max-width: 1170px;
+	margin: 0 auto;
+	padding: 0 15px;
+}
