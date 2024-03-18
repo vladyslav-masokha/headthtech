@@ -70,7 +70,7 @@ const ProductPage = () => {
 						</div>
 					) : (
 						<p className={styles.notAnimal}>
-							Товар з id <b>{id}</b> не знайдена
+							Товар з id <b>{id}</b> не знайдено
 						</p>
 					)}
 				</div>
