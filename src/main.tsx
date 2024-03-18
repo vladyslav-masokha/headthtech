@@ -13,6 +13,7 @@ import { UserProfilePage } from './assets/screens/userProfilePage/UserProfilePag
 import { Cart } from './assets/ui/Header/cart/Cart.tsx'
 import './firebase.ts'
 import './index.scss'
+import { LoginPage } from './assets/screens/loginPage/LoginPage.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
@@ -22,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 					<Route exact path='/' component={HomePage} />
 					<Route exact path='/profile' component={UserProfilePage} />
 					<Route exact path='/about' component={AboutPage} />
-					{/* <Route exact path='/login' component={LoginPage} /> */}
+					<Route exact path='/login' component={LoginPage} />
 					<Route exact path='/register' component={RegisterPage} />
 					<Route exact path='/reset' component={ResetPasswordPage} />
 					<Route exact path='/cart' component={Cart} />

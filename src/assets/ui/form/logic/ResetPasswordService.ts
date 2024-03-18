@@ -1,5 +1,5 @@
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
-// import { ResetErrorMessages } from '../errorMessages/ResetErrorMessage'
+import { AuthError, getAuth, sendPasswordResetEmail } from 'firebase/auth'
+import { ResetErrorMessages } from '../errorMessages/ResetErrorMessage'
 
 type SetState<T> = (state: T) => void
 
@@ -15,10 +15,10 @@ const handleResetPassword = (
 			setSuccessMessage(`Електронний лист надіслано успішно на ${email}.`)
 			setErrorMessage('')
 		})
-		// .catch((error: AuthError) => {
-		// 	const { code, message } = error
-		// 	ResetErrorMessages(setErrorMessage, code, message)
-		// })
+		.catch((error: AuthError) => {
+			const { code, message } = error
+			ResetErrorMessages(setErrorMessage, code, message)
+		})
 }
 
 export { handleResetPassword }

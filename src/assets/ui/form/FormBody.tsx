@@ -1,12 +1,12 @@
-// import { TextField } from '@mui/material'
+import { TextField } from '@mui/material'
 import styles from './Form.module.scss'
-// import { handleEmailBlur } from './handleBlurLogic/HandleEmailBlur'
-// import { handlePasswordBlur } from './handleBlurLogic/HandlePasswordBlur'
-// import { helperTextEmailLogic } from './helperLogic/HelperTextEmailLogic'
-// import { HelperTextPasswordLogic } from './helperLogic/HelperTextPasswordLogic'
-// import { handleEmailChange, handlePasswordChange } from './logic/AuthLogic'
 
-// type setSate<T> = void
+import { handleEmailBlur } from './handleBlurLogic/HandleEmailBlur' 
+import { handlePasswordBlur } from './handleBlurLogic/HandlePasswordBlur'
+
+import { helperTextEmailLogic } from './helperLogic/HelperTextEmailLogic'
+import { HelperTextPasswordLogic } from './helperLogic/HelperTextPasswordLogic'
+import { handleEmailChange, handlePasswordChange } from './logic/AuthLogic'
 
 interface FormBodyProps {
 	email: string
@@ -19,27 +19,25 @@ interface FormBodyProps {
 	setIsPasswordValid: (password: boolean) => void
 }
 
-const FormBody: React.FC<FormBodyProps> = (
-	// {
-	// email,
-	// password,
-	// setEmail,
-	// setPassword,
-	// isEmailValid,
-	// isPasswordValid,
-	// setIsEmailValid,
-	// setIsPasswordValid,
-// }
-) => {
-	// const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-	// 	handleEmailChange(e, { setEmail })
+const FormBody: React.FC<FormBodyProps> = ({
+	email,
+	password,
+	setEmail,
+	setPassword,
+	isEmailValid,
+	isPasswordValid,
+	setIsEmailValid,
+	setIsPasswordValid,
+}) => {
+	const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		handleEmailChange(e, { setEmail })
 
-	// const handlePasswordInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-	// 	handlePasswordChange(e, { setPassword })
+	const handlePasswordInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		handlePasswordChange(e, { setPassword })
 
 	return (
 		<div className={styles.formBody}>
-			{/* <TextField
+			<TextField
 				required
 				type='email'
 				id='outlined-basic'
@@ -50,9 +48,9 @@ const FormBody: React.FC<FormBodyProps> = (
 				helperText={helperTextEmailLogic(isEmailValid)}
 				onChange={handleEmailInputChange}
 				onBlur={() => handleEmailBlur(email, setIsEmailValid)}
-			/> */}
+			/>
 
-			{/* <TextField
+			<TextField
 				required
 				id='outlined-password-input'
 				label='Пароль'
@@ -63,7 +61,7 @@ const FormBody: React.FC<FormBodyProps> = (
 				helperText={HelperTextPasswordLogic(isPasswordValid)}
 				onChange={handlePasswordInputChange}
 				onBlur={() => handlePasswordBlur(password, setIsPasswordValid)}
-			/> */}
+			/>
 		</div>
 	)
 }

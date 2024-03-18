@@ -1,5 +1,5 @@
 import { AuthError, getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { LoginErrorMessages } from '../errorMessages/LoginErrorMessage'
+import { LoginErrorMessages } from '../errorMessages/LoginErrorMessages'
 
 type SetState<T> = (state: T) => void
 
