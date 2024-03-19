@@ -1,0 +1,12 @@
+.profile {
+	.userName {
+		text-align: center;
+	}
+
+	.userImage {
+		max-width: 300px;
+		display: flex;
+		margin: 15px auto;
+		border-radius: 50%;
+	}
+}

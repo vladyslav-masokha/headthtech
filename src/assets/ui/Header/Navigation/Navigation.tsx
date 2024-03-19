@@ -1,13 +1,18 @@
-import { User, getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from '../../../redux/slices/userSlice.ts'
+import { RootState } from '../../../redux/store.ts'
 import { CartIcon } from '../cart/CartIcon.tsx'
-import { NavLink } from './links/NavLink.tsx'
 import styles from './Navigation.module.scss'
 import { UserActions } from './UserActions.tsx'
+import { NavLink } from './links/NavLink.tsx'
 
 const Navigation = () => {
 	const [open, setOpen] = useState(false)
-	const [user, setUser] = useState<User | null>(null)
+
+	const user = useSelector((state: RootState) => state.user.user)
+	const dispatch = useDispatch()
 
 	const openNavigation = () => setOpen(!open)
 
@@ -27,17 +32,17 @@ const Navigation = () => {
 		const auth = getAuth()
 
 		const unsubscribe = onAuthStateChanged(auth, authUser =>
-			authUser ? setUser(authUser) : setUser(null)
+			authUser ? dispatch(setUser(authUser)) : dispatch(setUser(null))
 		)
 
 		return () => unsubscribe()
-	}, [])
+	}, [dispatch])
 
 	const handleLogout = async () => {
 		const auth = getAuth()
 
 		await signOut(auth)
-		setUser(null)
+		dispatch(setUser(null))
 	}
 
 	return (
