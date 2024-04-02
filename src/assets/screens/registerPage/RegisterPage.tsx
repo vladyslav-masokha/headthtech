@@ -12,27 +12,26 @@ import { handleUserNameChange } from '../../components/form/logic/AuthLogic'
 import { MessageLogic } from '../../globalLogic/messageLogic'
 import { redirectAfterTimeout } from '../../globalLogic/redirectAfterTimeout'
 import { useTitleLogic } from '../../globalLogic/titleLogic'
+import { setIsUserNameValid, setUserName } from '../../redux/slices/authSlice'
 import { RootState } from '../../redux/store'
 import { AuthRegisterBtn } from '../../ui/buttons/auth/btns/AuthRegisterBtn'
-import { setIsUserNameValid } from '../../redux/slices/authSlice'
 
 const RegisterPage = () => {
 	const dispatch = useDispatch()
 	const history = useHistory()
 	const auth = getAuth()
 	const [user] = useAuthState(auth)
-	const {
-		userName,
-		isUserNameValid,
-		successMessage,
-		errorMessage,
-	} = useSelector((state: RootState) => state.auth)
-	const setIsUserNameValidEl = dispatch(setIsUserNameValid(userName))
+	const { userName, isUserNameValid, successMessage, errorMessage } =
+		useSelector((state: RootState) => state.auth)
 
 	useTitleLogic({ namePage: 'Реєстрація', id: null })
 	redirectAfterTimeout({ user, history })
 
 	const messageProps = { successMessage, errorMessage }
+
+	const dispatchSetUserName = (newUserName: string) => {
+		dispatch(setUserName(newUserName))
+	}
 
 	return (
 		<form className={styles.form}>
@@ -52,9 +51,9 @@ const RegisterPage = () => {
 						value={userName}
 						error={!isUserNameValid}
 						helperText={helperTextUserNameLogic(isUserNameValid)}
-						onBlur={() => handleUserNameBlur(userName, setIsUserNameValidEl)}
+						onBlur={() => handleUserNameBlur(userName, setIsUserNameValid)}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							handleUserNameChange(e, { setUserName })
+							handleUserNameChange(e, { setUserName: dispatchSetUserName })
 						}
 					/>
 					<FormBody />
