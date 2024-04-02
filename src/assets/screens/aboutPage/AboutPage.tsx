@@ -1,6 +1,6 @@
 import { useTitleLogic } from '../../globalLogic/titleLogic'
-import { Header } from '../../ui/Header/Header'
-import { Footer } from '../../ui/footer/Footer'
+import { Header } from '../../components/header/Header'
+import { Footer } from '../../components/footer/Footer'
 import styles from './AboutPage.module.scss'
 
 const AboutPage = () => {

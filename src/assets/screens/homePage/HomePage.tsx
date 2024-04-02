@@ -1,7 +1,7 @@
-import { AnimalsCards } from '../../components/animalCards/AnimalsCards'
 import { Filter } from '../../components/filter/Filter'
-import { Header } from '../../ui/Header/Header'
-import { Footer } from '../../ui/footer/Footer'
+import { Footer } from '../../components/footer/Footer'
+import { Header } from '../../components/header/Header'
+import { ProductCards } from '../../components/productCards/ProductCards'
 import styles from './HomePage.module.scss'
 
 const HomePage = () => {
@@ -13,7 +13,7 @@ const HomePage = () => {
 				<div className='wrapper'>
 					<div className={styles.homeBody}>
 						<Filter />
-						<AnimalsCards />
+						<ProductCards />
 					</div>
 				</div>
 			</div>

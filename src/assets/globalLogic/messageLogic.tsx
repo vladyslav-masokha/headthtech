@@ -1,4 +1,4 @@
-import styles from '../ui/Form/Form.module.scss'
+import styles from '../components/Form/Form.module.scss'
 
 interface MessageLogicProps {
 	successMessage: string | null

@@ -1,10 +1,10 @@
 import { Close, FilterAlt } from '@mui/icons-material'
 import { useState } from 'react'
 import styles from './Filter.module.scss'
-import { ButtonApplyFilter } from './applyFilter/ButtonApplyFilter'
+import { ApplyFilterBtn } from './applyFilter/ApplyFilterBtn'
 import { useFilterLogic } from './applyFilter/useFilterLogic'
-import { CategoryFilter } from './category/CategoryFilter'
-import { PriceFilter } from './price/PriceFilter'
+import { CategoryFilter } from './filters/CategoryFilter'
+import { PriceFilter } from './filters/PriceFilter'
 
 const Filter = () => {
 	const [openFilter, setOpenFilter] = useState(false)
@@ -40,7 +40,7 @@ const Filter = () => {
 						applyFilters={applyFilters}
 					/>
 
-					<ButtonApplyFilter
+					<ApplyFilterBtn
 						applyFilters={applyFilters}
 						openFilterFunction={openFilterFunction}
 					/>

@@ -1,68 +1,38 @@
 import { TextField, Typography } from '@mui/material'
 import { getAuth } from 'firebase/auth'
-import { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import styles from '../../components/form/Form.module.scss'
+import { FormBody } from '../../components/form/FormBody'
+import { SignInWithGoogle } from '../../components/form/buttons/AuthBtnSignInWithGoogle'
+import { handleUserNameBlur } from '../../components/form/handleBlurLogic/HandleUserNameBlur'
+import { helperTextUserNameLogic } from '../../components/form/helperLogic/HelperTextUserNameLogic'
+import { handleUserNameChange } from '../../components/form/logic/AuthLogic'
 import { MessageLogic } from '../../globalLogic/messageLogic'
 import { redirectAfterTimeout } from '../../globalLogic/redirectAfterTimeout'
 import { useTitleLogic } from '../../globalLogic/titleLogic'
-import styles from '../../ui/form/Form.module.scss'
-import { FormBody } from '../../ui/form/FormBody' 
-import { AuthBtnRegister } from '../../ui/form/buttons/AuthBtnRegister'
-import { SignInWithGoogle } from '../../ui/form/buttons/AuthBtnSignInWithGoogle'
-import { handleUserNameBlur } from '../../ui/form/handleBlurLogic/HandleUserNameBlur'
-import { helperTextUserNameLogic } from '../../ui/form/helperLogic/HelperTextUserNameLogic'
-import { handleRegister } from '../../ui/form/logic/RegisterService'
-import { handleUserNameChange } from '../../ui/form/logic/AuthLogic'
+import { RootState } from '../../redux/store'
+import { AuthRegisterBtn } from '../../ui/buttons/auth/btns/AuthRegisterBtn'
+import { setIsUserNameValid } from '../../redux/slices/authSlice'
 
 const RegisterPage = () => {
+	const dispatch = useDispatch()
 	const history = useHistory()
 	const auth = getAuth()
 	const [user] = useAuthState(auth)
-	const [userName, setUserName] = useState<string>('')
-	const [email, setEmail] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
-
-	const [successMessage, setSuccessMessage] = useState<string | null>(null)
-	const [errorMessage, setErrorMessage] = useState<string | null>(null)
-
-	const [isUserNameValid, setIsUserNameValid] = useState<boolean>(true)
-	const [isEmailValid, setIsEmailValid] = useState<boolean>(true)
-	const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true)
+	const {
+		userName,
+		isUserNameValid,
+		successMessage,
+		errorMessage,
+	} = useSelector((state: RootState) => state.auth)
+	const setIsUserNameValidEl = dispatch(setIsUserNameValid(userName))
 
 	useTitleLogic({ namePage: 'Реєстрація', id: null })
 	redirectAfterTimeout({ user, history })
 
-	const handleRegisterClick = () =>
-		handleRegister(
-			userName,
-			email,
-			password,
-			setUserName,
-			setEmail,
-			setPassword,
-			setSuccessMessage,
-			setErrorMessage
-		)
-
 	const messageProps = { successMessage, errorMessage }
-	const btnRegisterProps = {
-		handleRegisterClick,
-		isUserNameValid,
-		isEmailValid,
-		isPasswordValid,
-	}
-	const formProps = {
-		email,
-		password,
-		setEmail,
-		setPassword,
-		isUserNameValid,
-		isEmailValid,
-		isPasswordValid,
-		setIsEmailValid,
-		setIsPasswordValid,
-	}
 
 	return (
 		<form className={styles.form}>
@@ -82,13 +52,13 @@ const RegisterPage = () => {
 						value={userName}
 						error={!isUserNameValid}
 						helperText={helperTextUserNameLogic(isUserNameValid)}
-						onBlur={() => handleUserNameBlur(userName, setIsUserNameValid)}
+						onBlur={() => handleUserNameBlur(userName, setIsUserNameValidEl)}
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							handleUserNameChange(e, { setUserName })
 						}
 					/>
-					<FormBody {...formProps} />
-					<AuthBtnRegister {...btnRegisterProps} />
+					<FormBody />
+					<AuthRegisterBtn />
 					<SignInWithGoogle auth={auth} />
 				</div>
 			</div>

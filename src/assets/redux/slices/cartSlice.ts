@@ -10,10 +10,13 @@ interface CartState {
 	totalQuantity: number
 }
 
-export const initialState: CartState = {
-	items: [],
-	totalQuantity: 0,
-}
+const persistedCart = localStorage.getItem('cart')
+export const initialState: CartState = persistedCart
+	? JSON.parse(persistedCart)
+	: {
+			items: [],
+			totalQuantity: 0,
+	}
 
 const cartSlice = createSlice({
 	name: 'cart',
@@ -30,6 +33,7 @@ const cartSlice = createSlice({
 			}
 
 			state.totalQuantity += 1
+			localStorage.setItem('cart', JSON.stringify(state))
 		},
 
 		removeFromCart: (state, action: PayloadAction<number>) => {
@@ -42,6 +46,15 @@ const cartSlice = createSlice({
 				state.totalQuantity -= state.items[existingItemIndex].quantity
 				state.items.splice(existingItemIndex, 1)
 			}
+
+			localStorage.setItem('cart', JSON.stringify(state))
+		},
+
+		clearCart: state => {
+			state.items = []
+			state.totalQuantity = 0
+
+			localStorage.removeItem('cart')
 		},
 	},
 })

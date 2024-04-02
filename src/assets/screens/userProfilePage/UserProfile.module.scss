@@ -4,9 +4,38 @@
 	}
 
 	.userImage {
-		max-width: 300px;
+		max-width: 100px;
 		display: flex;
 		margin: 15px auto;
 		border-radius: 50%;
+	}
+
+	.profileBody {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 60px;
+
+		h3 {
+			margin: 5px 0;
+		}
+
+		> div {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 15px;
+
+			> a {
+				width: 100%;
+				text-align: center;
+
+				button {
+					color: var(--global-yellow-dark);
+				}
+			}
+		}
 	}
 }

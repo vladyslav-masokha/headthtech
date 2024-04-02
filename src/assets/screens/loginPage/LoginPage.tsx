@@ -1,56 +1,31 @@
 import { Typography } from '@mui/material'
 import { getAuth } from 'firebase/auth'
-import { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import styles from '../../components/form/Form.module.scss'
+import { FormBody } from '../../components/form/FormBody'
+import { SignInWithGoogle } from '../../components/form/buttons/AuthBtnSignInWithGoogle'
 import { MessageLogic } from '../../globalLogic/messageLogic'
 import { redirectAfterTimeout } from '../../globalLogic/redirectAfterTimeout'
 import { useTitleLogic } from '../../globalLogic/titleLogic'
-import styles from '../../ui/form/Form.module.scss'
-import { FormBody } from '../../ui/form/FormBody'
-import { AuthBtnForgotPassword } from '../../ui/form/buttons/AuthBtnForgotPassword'
-import { AuthLoginButtons } from '../../ui/form/buttons/AuthBtnLogin'
-import { SignInWithGoogle } from '../../ui/form/buttons/AuthBtnSignInWithGoogle' 
-import { handleLogin } from '../../ui/form/logic/LoginService'
+import { RootState } from '../../redux/store'
+import { AuthLoginBtn } from '../../ui/buttons/auth/btns/AuthLoginBtn'
+import { ForgotPasswordBtn } from '../../ui/buttons/auth/links/ForgotPasswordBtn'
+import { RegisterBtn } from '../../ui/buttons/auth/links/RegisterBtn'
 
 const LoginPage = () => {
 	const history = useHistory()
 	const auth = getAuth()
 	const [user] = useAuthState(auth)
-	const [email, setEmail] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
-
-	const [successMessage, setSuccessMessage] = useState<string | null>(null)
-	const [errorMessage, setErrorMessage] = useState<string | null>(null)
-
-	const [isEmailValid, setIsEmailValid] = useState<boolean>(true)
-	const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true)
+	const { successMessage, errorMessage } = useSelector(
+		(state: RootState) => state.auth
+	)
 
 	useTitleLogic({ namePage: 'Авторизація', id: null })
 	redirectAfterTimeout({ user, history })
 
-	const handleLoginClick = () =>
-		handleLogin(
-			email,
-			password,
-			setEmail,
-			setPassword,
-			setSuccessMessage,
-			setErrorMessage
-		)
-
 	const messageProps = { successMessage, errorMessage }
-	const btnLoginProps = { handleLoginClick, isEmailValid, isPasswordValid }
-	const formProps = {
-		email,
-		password,
-		setEmail,
-		setPassword,
-		isEmailValid,
-		isPasswordValid,
-		setIsEmailValid,
-		setIsPasswordValid,
-	}
 
 	return (
 		<form className={styles.form}>
@@ -61,9 +36,14 @@ const LoginPage = () => {
 					</Typography>
 					<MessageLogic {...messageProps} />
 
-					<FormBody {...formProps} />
-					<AuthBtnForgotPassword />
-					<AuthLoginButtons {...btnLoginProps} />
+					<FormBody />
+					<ForgotPasswordBtn />
+
+					<div className={styles.loginBtns}>
+						<AuthLoginBtn />
+						<RegisterBtn />
+					</div>
+
 					<SignInWithGoogle auth={auth} />
 				</div>
 			</div>

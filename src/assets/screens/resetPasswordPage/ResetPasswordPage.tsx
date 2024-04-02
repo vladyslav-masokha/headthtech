@@ -2,12 +2,12 @@ import { TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { MessageLogic } from '../../globalLogic/messageLogic'
 import { useTitleLogic } from '../../globalLogic/titleLogic'
-import styles from '../../ui/Form/Form.module.scss'
-import { AuthBtnResetPassword } from '../../ui/form/buttons/AuthBtnResetPassword'
-import { handleEmailBlur } from '../../ui/form/handleBlurLogic/HandleEmailBlur'
-import { helperTextEmailLogic } from '../../ui/form/helperLogic/HelperTextEmailLogic'
-import { handleEmailChange } from '../../ui/form/logic/AuthLogic'
-import { handleResetPassword } from '../../ui/form/logic/ResetPasswordService'
+import styles from '../../components/form/Form.module.scss'
+import { AuthBtnResetPassword } from '../../components/form/buttons/AuthBtnResetPassword'
+import { handleEmailBlur } from '../../components/form/handleBlurLogic/HandleEmailBlur'
+import { helperTextEmailLogic } from '../../components/form/helperLogic/HelperTextEmailLogic'
+import { handleEmailChange } from '../../components/form/logic/AuthLogic'
+import { handleResetPassword } from '../../components/form/logic/ResetPasswordService'
 
 const ResetPasswordPage = () => {
 	const [successMessage, setSuccessMessage] = useState<string | null>(null)

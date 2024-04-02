@@ -1,15 +1,16 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { useTitleLogic } from '../../globalLogic/titleLogic'
-import { Product } from '../../types'
-import { Header } from '../../ui/Header/Header'
-import { Footer } from '../../ui/footer/Footer'
-import styles from './AnimalPage.module.scss'
-
-import { useSelector } from 'react-redux'
+import { Footer } from '../../components/footer/Footer'
 import { formatCurrency } from '../../components/formatCurrency/formatCurrency'
+import { Header } from '../../components/header/Header'
+import { useTitleLogic } from '../../globalLogic/titleLogic'
+import { addToCart } from '../../redux/slices/cartSlice'
 import { RootState } from '../../redux/store'
+import { Product } from '../../types'
+import styles from './ProductPage.module.scss'
 
 const ProductPage = () => {
+	const dispatch = useDispatch()
 	const { id } = useParams<{ id: string }>()
 
 	const data: Product[] = useSelector(
@@ -18,6 +19,8 @@ const ProductPage = () => {
 	const product = data.find(product => product.id === +id)
 
 	useTitleLogic({ namePage: product ? product.title : '', id: +id })
+
+	const handleAddToCart = (product: Product) => dispatch(addToCart(product))
 
 	return (
 		<>
@@ -38,6 +41,13 @@ const ProductPage = () => {
 								<h3 className={styles.title}>{product.title}</h3>
 								<p>Категорія: {product.category}</p>
 								<p>Ціна: {formatCurrency(product.price)}</p>
+
+								<button
+									className='addToCartBtn'
+									onClick={() => handleAddToCart(product)}
+								>
+									Додати до кошика
+								</button>
 
 								<div className={styles.productAbout}>
 									<h3>Опис</h3>

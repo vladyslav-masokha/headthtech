@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux'
 import { useTitleLogic } from '../../globalLogic/titleLogic'
 import { RootState } from '../../redux/store'
-import { Header } from '../../ui/Header/Header'
-import { Footer } from '../../ui/footer/Footer'
+import { Header } from '../../components/header/Header'
+import { Footer } from '../../components/footer/Footer'
 import styles from './UserProfile.module.scss'
+import { renderUserData } from './renderUserData'
 import { renderUserImage } from './renderUserImage'
 
 const UserProfilePage = () => {
@@ -17,19 +18,11 @@ const UserProfilePage = () => {
 
 			<div className={styles.profile}>
 				<div className='wrapper'>
-					{user ? (
-						<>
-							{renderUserImage(user)}
-							<h2 className={styles.userName}>
-								{user.displayName || 'Анонімний користувач'}
-							</h2>
-						</>
-					) : (
-						<>
-							{renderUserImage(null)}
-							<h2 className={styles.userName}>Анонімний користувач</h2>
-						</>
-					)}
+					{user ? renderUserImage(user) : renderUserImage(null)}
+
+					<div className={styles.profileBody}>
+						{user ? renderUserData(user) : renderUserData(null)}
+					</div>
 				</div>
 			</div>
 
