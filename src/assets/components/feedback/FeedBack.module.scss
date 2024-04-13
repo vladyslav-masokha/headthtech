@@ -1,0 +1,54 @@
+.feedback {
+	background-color: var(--global-blue-dark);
+	box-shadow: 0 0 20px var(--global-dark);
+	border-radius: 20px;
+
+	padding: 30px 0;
+	margin: 30px 0;
+
+	.titleBlock {
+		text-align: center;
+		color: var(--global-light);
+	}
+
+	.feedbackBody {
+		max-width: 400px;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		margin: 0 auto;
+
+		input {
+			color: var(--global-light);
+			padding: 5px 15px;
+			background-color: transparent;
+			border: none;
+			outline: none;
+			border-bottom: 1px solid var(--global-lightgreen);
+		}
+
+		textarea {
+			outline: none;
+			background-color: transparent;
+			color: var(--global-light);
+			padding: 15px;
+			border: 1px solid var(--global-lightgreen);
+			resize: none;
+		}
+
+		button {
+			cursor: pointer;
+			padding: 10px;
+			background-color: transparent;
+			color: var(--global-light);
+			border: 1px dotted var(--global-lightgreen);
+			transition: all 0.5s ease-in-out;
+
+			&:hover {
+				border-style: solid;
+				background-color: var(--global-lightgreen);
+				color: var(--global-dark);
+			}
+		}
+	}
+}

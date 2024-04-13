@@ -60,3 +60,8 @@ li {
 	border: none;
 	cursor: pointer;
 }
+
+.slick-prev:before,
+.slick-next:before {
+	color: var(--global-dark) !important;
+}
